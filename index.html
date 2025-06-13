@@ -1,253 +1,216 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proposition Stratégique | KEO Tech pour Conseils Réunis</title>
+    <title>Votre Plan de Transformation | KEO Tech & Conseils Réunis</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Teko:wght@600&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Custom Styles & Color Palette -->
+    <!-- Custom Configuration & Styles -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cr-dark-blue': '#0D1B2A',
+                        'cr-mid-blue': '#1B263B',
+                        'cr-light-blue': '#415A77',
+                        'cr-grey': '#778DA9',
+                        'cr-light-grey': '#E0E1DD',
+                        'cr-accent': '#00F5D4', // Un accent cyan/turquoise vif
+                    },
+                    fontFamily: {
+                        sans: ['Manrope', 'sans-serif'],
+                        display: ['Teko', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --color-primary: #0a2463; /* Bleu institutionnel */
-            --color-secondary: #3e92cc; /* Bleu clair */
-            --color-accent: #d4af37;   /* Or / Doré pour l'accent de qualité */
-            --color-text: #333333;
-            --color-bg: #f8f9fa;
+        .gradient-bg {
+            background: linear-gradient(180deg, #0D1B2A 0%, #1B263B 100%);
         }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--color-bg);
-            color: var(--color-text);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.645, 0.045, 0.355, 1), transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
         }
-
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-            color: var(--color-primary);
+        .is-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
-
-        .hero-gradient {
-            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-        }
-
-        .cta-button {
-            background-color: var(--color-accent);
-            color: white;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-        .cta-button:hover {
-            background-color: #c09e2e;
-            transform: translateY(-2px);
-        }
-
-        /* Styles pour la feuille de route (Timeline) */
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 4px;
-            background-color: var(--color-secondary);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -2px;
-            border-radius: 2px;
-        }
-        .timeline-container {
-            padding: 10px 40px;
-            position: relative;
-            background-color: inherit;
-            width: 50%;
-        }
-        .timeline-container.left {
-            left: 0;
-        }
-        .timeline-container.right {
-            left: 50%;
-        }
-        .timeline-container::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            right: -10px;
-            background-color: white;
-            border: 4px solid var(--color-accent);
-            top: 15px;
-            border-radius: 50%;
-            z-index: 1;
-        }
-        .right::after {
-            left: -10px;
-        }
-        .timeline-content {
-            padding: 20px 30px;
-            background-color: white;
-            position: relative;
-            border-radius: 6px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            border: 1px solid #eee;
-        }
-        .left .timeline-content {
-           text-align: right;
-        }
-        
-        @media screen and (max-width: 768px) {
-            .timeline::after {
-                left: 31px;
-            }
-            .timeline-container {
-                width: 100%;
-                padding-left: 70px;
-                padding-right: 25px;
-            }
-            .timeline-container.left, .timeline-container.right {
-                left: 0%;
-            }
-            .timeline-container.left::after, .timeline-container.right::after {
-                left: 21px;
-            }
-            .left .timeline-content {
-               text-align: left;
-            }
+        .step-line {
+            height: calc(100% - 2.5rem);
+            top: 2.5rem;
         }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-cr-dark-blue text-cr-light-grey">
 
-    <!-- Header / Hero Section -->
-    <header class="hero-gradient text-white text-center py-20 px-6">
-        <div class="relative z-10">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4 text-white">Bâtir votre avenir numérique, ensemble.</h1>
-            <p class="max-w-3xl mx-auto text-lg md:text-xl text-gray-200 mb-2">
-                Une proposition stratégique pour transformer les défis actuels de Conseils Réunis en un avantage concurrentiel durable.
+    <!-- HERO SECTION -->
+    <section class="min-h-screen flex items-center gradient-bg">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="font-display text-5xl md:text-8xl uppercase tracking-wider text-white">
+                Prochaine Étape : <span class="text-cr-accent">La Croissance</span>
+            </h1>
+            <p class="mt-4 text-lg md:text-xl text-cr-grey max-w-3xl mx-auto">
+                Une proposition stratégique pour transformer les défis de Conseils Réunis en un système de gouvernance et de performance durable.
             </p>
-            <p class="font-mono text-sm text-yellow-300">Mission : Digitalisation, Gouvernance et Conformité ISO 9001.</p>
+            <a href="#challenge" class="mt-12 inline-block bg-cr-accent text-cr-dark-blue font-bold py-3 px-8 rounded-full transition-transform hover:scale-105">
+                Découvrir le Plan
+            </a>
         </div>
-    </header>
+    </section>
 
-    <!-- Main Content -->
-    <main class="py-16 md:py-24">
+    <main class="py-20 md:py-32">
         <div class="container mx-auto px-6">
 
-            <!-- Section 1: The Opportunity -->
-            <section class="text-center max-w-4xl mx-auto mb-20 md:mb-24">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Votre situation actuelle : une opportunité unique.</h2>
-                <p class="text-lg text-gray-600">
-                    La phase de transition que vous traversez est le moment idéal pour poser des fondations saines et pérennes. C'est l'occasion de construire un système qui non seulement optimise vos opérations, mais renforce également votre gouvernance et votre position sur le marché.
-                </p>
-            </section>
-
-            <!-- Section 2: The Roadmap -->
-            <section class="mb-20 md:mb-24">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Notre Plan d'Action sur 90 Jours</h2>
-                <div class="timeline">
-                    <div class="timeline-container left">
-                        <div class="timeline-content">
-                            <h3 class="text-xl font-bold">Semaines 1-2 : Diagnostic & Cadrage</h3>
-                            <p class="text-gray-600 mt-2">Audit de l'existant, cartographie des processus et élaboration d'une feuille de route stratégique claire et priorisée.</p>
-                        </div>
+            <!-- THE CHALLENGE SECTION -->
+            <section id="challenge" class="mb-24 md:mb-40">
+                <div class="text-center max-w-3xl mx-auto reveal-on-scroll">
+                    <h2 class="font-display text-4xl md:text-5xl uppercase text-white">Le Point de Bascule Actuel</h2>
+                    <p class="mt-4 text-lg text-cr-grey">
+                        Vous êtes face à une convergence de défis qui, bien gérés, deviennent une opportunité unique de refondation et d'accélération.
+                    </p>
+                </div>
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <!-- Card 1 -->
+                    <div class="reveal-on-scroll border border-cr-mid-blue p-8 rounded-lg bg-cr-dark-blue/50">
+                        <h3 class="font-display text-2xl text-cr-accent">Défi #1 : ISO 9001</h3>
+                        <p class="mt-2 text-cr-grey">Transformer une obligation de conformité en un véritable outil de performance et de pilotage qualité.</p>
                     </div>
-                    <div class="timeline-container right">
-                        <div class="timeline-content">
-                            <h3 class="text-xl font-bold">Semaines 3-7 : Déploiement & Sécurisation</h3>
-                            <p class="text-gray-600 mt-2">Configuration de votre ERP Odoo, mise en place du Système Qualité (SMQ) digital et renforcement de la gouvernance des données.</p>
-                        </div>
+                    <!-- Card 2 -->
+                    <div class="reveal-on-scroll border border-cr-mid-blue p-8 rounded-lg bg-cr-dark-blue/50" style="transition-delay: 200ms;">
+                        <h3 class="font-display text-2xl text-cr-accent">Défi #2 : Digitalisation</h3>
+                        <p class="mt-2 text-cr-grey">Moderniser les processus pour améliorer la gouvernance, l'efficacité et l'expérience client et collaborateur.</p>
                     </div>
-                    <div class="timeline-container left">
-                        <div class="timeline-content">
-                            <h3 class="text-xl font-bold">Semaines 8-10 : Intégration & Automatisation</h3>
-                            <p class="text-gray-600 mt-2">Intégration de ProRecruit pour le recrutement, automatisation des tâches clés et formation de vos équipes aux nouveaux outils.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-container right">
-                        <div class="timeline-content">
-                            <h3 class="text-xl font-bold">Semaines 11-12 : Finalisation & Suivi</h3>
-                            <p class="text-gray-600 mt-2">Mise en place des indicateurs de performance (KPIs) et préparation finale pour l'audit de certification ISO 9001.</p>
-                        </div>
+                    <!-- Card 3 -->
+                    <div class="reveal-on-scroll border border-cr-mid-blue p-8 rounded-lg bg-cr-dark-blue/50" style="transition-delay: 400ms;">
+                        <h3 class="font-display text-2xl text-cr-accent">Défi #3 : Transition</h3>
+                        <p class="mt-2 text-cr-grey">Assurer la continuité, stabiliser les opérations et remobiliser les équipes autour d'une nouvelle vision claire.</p>
                     </div>
                 </div>
             </section>
 
-
-            <!-- Section 3: The Benefits -->
-            <section class="mb-20 md:mb-24">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Vos bénéfices concrets et mesurables</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                    <!-- Item 1 -->
-                    <div class="bg-white p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-lg hover:border-blue-500 border border-transparent">
-                        <span class="text-3xl">🏆</span>
-                        <h3 class="text-xl font-bold mt-2 mb-2">Conformité ISO 9001 Assurée</h3>
-                        <p class="text-gray-600">Un Système de Management de la Qualité (SMQ) digital, centralisé et prêt pour l'audit, garantissant traçabilité et efficacité.</p>
-                    </div>
-                    <!-- Item 2 -->
-                    <div class="bg-white p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-lg hover:border-blue-500 border border-transparent">
-                        <span class="text-3xl">⚙️</span>
-                        <h3 class="text-xl font-bold mt-2 mb-2">Processus Opérationnels Optimisés</h3>
-                        <p class="text-gray-600">Votre ERP Odoo configuré pour automatiser la gestion des contrats et de la paie, réduisant ainsi les erreurs et le temps de traitement.</p>
-                    </div>
-                    <!-- Item 3 -->
-                    <div class="bg-white p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-lg hover:border-blue-500 border border-transparent">
-                         <span class="text-3xl">🎯</span>
-                        <h3 class="text-xl font-bold mt-2 mb-2">Recrutement Performant</h3>
-                        <p class="text-gray-600">L'outil ProRecruit, soutenu par Google, pour attirer, gérer et sélectionner les meilleurs talents de manière professionnelle et centralisée.</p>
-                    </div>
-                    <!-- Item 4 -->
-                    <div class="bg-white p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-lg hover:border-blue-500 border border-transparent">
-                        <span class="text-3xl">🛡️</span>
-                        <h3 class="text-xl font-bold mt-2 mb-2">Gouvernance et Sécurité Renforcées</h3>
-                        <p class="text-gray-600">Des protocoles de sécurité clairs et une gestion documentaire structurée pour protéger vos données et celles de vos clients.</p>
+            <!-- THE SOLUTION SECTION -->
+            <section class="mb-24 md:mb-40">
+                <div class="text-left max-w-6xl mx-auto reveal-on-scroll">
+                    <h2 class="font-display text-4xl md:text-5xl uppercase text-white">Notre Solution : Un Système Intégré</h2>
+                    <p class="mt-4 text-lg text-cr-grey max-w-3xl">
+                        Nous ne proposons pas des outils isolés, mais un écosystème cohérent qui répond à l'ensemble de vos défis.
+                    </p>
+                </div>
+                <!-- Plan Steps -->
+                <div class="mt-16 max-w-6xl mx-auto">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                        <!-- Step 1 -->
+                        <div class="reveal-on-scroll">
+                            <div class="flex items-start gap-6">
+                                <div class="font-display text-5xl text-cr-accent">01</div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white">Fondations : Odoo & SMQ Digital</h3>
+                                    <p class="mt-2 text-cr-grey">Nous configurons votre ERP Odoo et votre Système de Management Qualité (SMQ) comme le socle de votre nouvelle organisation. L'objectif : une source de vérité unique, fiable et prête pour l'audit.</p>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Step 2 -->
+                        <div class="reveal-on-scroll" style="transition-delay: 200ms;">
+                            <div class="flex items-start gap-6">
+                                <div class="font-display text-5xl text-cr-accent">02</div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white">Accélération : ProRecruit & Automatisation</h3>
+                                    <p class="mt-2 text-cr-grey">Nous intégrons ProRecruit pour dynamiser votre acquisition de talents et nous automatisons les workflows clés pour libérer vos équipes des tâches à faible valeur ajoutée.</p>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Step 3 -->
+                        <div class="reveal-on-scroll" style="transition-delay: 400ms;">
+                            <div class="flex items-start gap-6">
+                                <div class="font-display text-5xl text-cr-accent">03</div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white">Sécurisation : Gouvernance & Cybersécurité</h3>
+                                    <p class="mt-2 text-cr-grey">Nous mettons en place les protocoles et la structure documentaire pour garantir la sécurité et l'intégrité de vos données, un point non négociable pour la confiance de vos clients.</p>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Step 4 -->
+                        <div class="reveal-on-scroll" style="transition-delay: 600ms;">
+                            <div class="flex items-start gap-6">
+                                <div class="font-display text-5xl text-cr-accent">04</div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white">Pilotage : Formation & KPIs</h3>
+                                    <p class="mt-2 text-cr-grey">Nous formons vos équipes et nous définissons les indicateurs clés de performance (KPIs) qui vous permettront de piloter votre activité avec clarté et de prendre des décisions éclairées.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
             
-            <!-- Section 4: The Guarantee -->
-            <section class="bg-primary text-white rounded-lg p-8 md:p-12 text-center max-w-4xl mx-auto mb-20 md:mb-24" style="background-color: var(--color-primary);">
-                <h2 class="text-2xl md:text-3xl font-bold mb-4 text-white">Notre Garantie "Confiance & Partenariat"</h2>
-                <p class="text-lg opacity-90">Notre collaboration débute par une phase de diagnostic et de cadrage stratégique. Notre engagement est simple : si, à l'issue de cette étape, vous n'êtes pas convaincu de la valeur et de la pertinence de notre plan d'action pour Conseils Réunis, vous êtes libre de toute obligation.</p>
-            </section>
-
-            <!-- Section 5: Authority -->
-            <section class="text-center max-w-4xl mx-auto mb-20 md:mb-24">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Une expertise internationale au service de votre réussite locale</h2>
-                <p class="text-lg text-gray-600 mb-8">Nous mettons à votre disposition le niveau d'exigence et les meilleures pratiques acquises auprès des leaders mondiaux, tout en les adaptant avec finesse aux réalités et aux ambitions de votre marché.</p>
-                <div class="text-center text-xs sm:text-sm text-gray-500 font-medium space-y-4">
-                    <p>COMCAST · FEDERAL RESERVE BANK · INTERTEK · TD BANK · NBC</p>
-                    <p>CITY OF PHILADELPHIA · SKY (UK) · GOOGLE · IRS</p>
-                    <p>ACCENTURE · TATA CONSULTANCY · DELOITTE · KORN FERRY</p>
+            <!-- GUARANTEE & AUTHORITY SECTION -->
+            <section class="mb-24 md:mb-40 bg-cr-mid-blue p-8 md:p-12 rounded-lg">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+                    <div class="lg:col-span-2 reveal-on-scroll">
+                        <h2 class="font-display text-3xl md:text-4xl uppercase text-white">Votre Partenaire de Confiance</h2>
+                        <p class="mt-4 text-cr-light-grey">
+                           Notre engagement est double. D'une part, une **Garantie "Confiance & Partenariat"** : la phase de diagnostic initiale est à risque zéro pour vous. Si le plan d'action ne vous convainc pas, vous êtes libre de toute obligation. D'autre part, une expertise internationale éprouvée au service de votre contexte local.
+                        </p>
+                    </div>
+                    <div class="reveal-on-scroll" style="transition-delay: 200ms;">
+                        <p class="font-bold text-cr-grey mb-4 text-center lg:text-left">Expertise validée par :</p>
+                        <div class="flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-3 text-sm font-bold text-cr-light-grey">
+                            <span>GOOGLE</span> <span>DELOITTE</span> <span>ACCENTURE</span> <span>COMCAST</span> <span>IRS</span> <span>SKY (UK)</span>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <!-- Section 6: CTA -->
-            <section class="text-center bg-white py-16 rounded-lg shadow-inner-lg">
-                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Prêts à passer à l'étape suivante ?</h2>
-                 <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">Je vous invite à un échange de 20 minutes pour discuter de cette proposition et définir ensemble un plan d'action sur mesure.</p>
-                 <a href="https://calendar.app.google/Hq8D199uDiiDJyXc7" target="_blank" class="cta-button inline-block font-bold text-lg py-4 px-10 rounded-full shadow-lg">
-                    Planifier notre échange stratégique
-                 </a>
+            <!-- CTA SECTION -->
+            <section class="text-center">
+                <div class="reveal-on-scroll">
+                    <h2 class="font-display text-4xl md:text-5xl uppercase text-white">Passons à l'Action</h2>
+                    <p class="mt-4 text-lg text-cr-grey max-w-2xl mx-auto">
+                        Je vous propose un échange de 20 minutes pour parcourir cette proposition en détail et définir ensemble le premier pas concret.
+                    </p>
+                    <a href="https://calendar.app.google/Hq8D199uDiiDJyXc7" target="_blank" class="mt-10 inline-block bg-cr-accent text-cr-dark-blue font-bold py-4 px-10 rounded-full transition-transform hover:scale-105 shadow-lg shadow-cr-accent/20">
+                        Planifier Notre Échange
+                    </a>
+                </div>
             </section>
 
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="text-center py-8 px-6 mt-12 border-t">
-        <p class="text-gray-500 text-sm">&copy; 2025 KEO Tech. Une proposition conçue pour la croissance de Conseils Réunis.</p>
+    <!-- FOOTER -->
+    <footer class="text-center py-10 px-6 mt-20 border-t border-cr-mid-blue">
+        <p class="text-cr-grey text-sm">&copy; 2025 KEO Tech. Conçu pour la réussite de Conseils Réunis.</p>
     </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            const elementsToReveal = document.querySelectorAll('.reveal-on-scroll');
+            elementsToReveal.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
 </body>
 </html>
